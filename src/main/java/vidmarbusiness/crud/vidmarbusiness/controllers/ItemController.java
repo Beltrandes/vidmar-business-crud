@@ -1,4 +1,4 @@
-package vidmarbusiness.crud.controllers;
+package vidmarbusiness.crud.vidmarbusiness.controllers;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import vidmarbusiness.crud.dtos.ItemDTO;
-import vidmarbusiness.crud.services.ItemService;
+import vidmarbusiness.crud.vidmarbusiness.dtos.ItemDTO;
+import vidmarbusiness.crud.vidmarbusiness.services.ItemService;
 
 @RestController
 @RequestMapping("/api/itens-estoque")

@@ -1,4 +1,4 @@
-package vidmarbusiness.crud.dtos;
+package vidmarbusiness.crud.vidmarbusiness.dtos;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Pattern;
 
 public record ItemDTO(
     @JsonProperty("_id") Long id,
-    @NotNull Number amount,
+    @NotNull Integer amount,
     @NotNull @NotBlank @Length(max = 100) String name,
     @NotNull @NotBlank @Length(max = 20) @Pattern(regexp = "Marmoraria|Vidraçaria") String type,
     @NotNull @NotBlank @Length(max = 20) @Pattern(regexp = "Em estoque|Em falta") String status

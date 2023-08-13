@@ -1,4 +1,4 @@
-package vidmarbusiness.crud.exceptions;
+package vidmarbusiness.crud.vidmarbusiness.exceptions;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

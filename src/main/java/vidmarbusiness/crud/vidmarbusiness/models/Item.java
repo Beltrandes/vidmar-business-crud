@@ -26,7 +26,7 @@ public class Item {
 
     @NotNull
     @Column
-    private Number amount;
+    private Integer amount;
 
     @NotBlank
     @NotNull

@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import vidmarbusiness.crud.repositorys.ItemRepository;
 import vidmarbusiness.crud.vidmarbusiness.models.Item;
+import vidmarbusiness.crud.vidmarbusiness.repositorys.ItemRepository;
 
 @SpringBootApplication
 public class VidmarbusinessApplication {

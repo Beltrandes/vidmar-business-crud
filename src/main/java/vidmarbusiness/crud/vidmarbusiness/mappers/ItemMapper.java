@@ -1,8 +1,8 @@
-package vidmarbusiness.crud.mappers;
+package vidmarbusiness.crud.vidmarbusiness.mappers;
 
 import org.springframework.stereotype.Component;
 
-import vidmarbusiness.crud.dtos.ItemDTO;
+import vidmarbusiness.crud.vidmarbusiness.dtos.ItemDTO;
 import vidmarbusiness.crud.vidmarbusiness.models.Item;
 
 @Component

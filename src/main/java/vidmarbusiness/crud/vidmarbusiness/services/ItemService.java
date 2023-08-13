@@ -1,4 +1,4 @@
-package vidmarbusiness.crud.services;
+package vidmarbusiness.crud.vidmarbusiness.services;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import vidmarbusiness.crud.dtos.ItemDTO;
-import vidmarbusiness.crud.exceptions.RecordNotFoundException;
-import vidmarbusiness.crud.mappers.ItemMapper;
-import vidmarbusiness.crud.repositorys.ItemRepository;
+import vidmarbusiness.crud.vidmarbusiness.repositorys.ItemRepository;
+import vidmarbusiness.crud.vidmarbusiness.dtos.ItemDTO;
+import vidmarbusiness.crud.vidmarbusiness.exceptions.RecordNotFoundException;
+import vidmarbusiness.crud.vidmarbusiness.mappers.ItemMapper;
 
 @Validated
 @Service
