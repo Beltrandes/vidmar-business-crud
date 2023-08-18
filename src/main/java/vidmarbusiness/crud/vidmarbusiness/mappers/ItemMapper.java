@@ -12,7 +12,7 @@ public class ItemMapper {
             return null;
         }
 
-        return new ItemDTO(item.getId(), item.getAmount(), item.getName(), item.getType(), item.getStatus());
+        return new ItemDTO(item.getId(), item.getAmount(), item.getName(), item.getType());
     }
 
     public Item toEntity(ItemDTO itemDTO) {
@@ -27,7 +27,6 @@ public class ItemMapper {
         item.setAmount(itemDTO.amount());
         item.setName(itemDTO.name());
         item.setType(itemDTO.type());
-        item.setStatus(itemDTO.status());
 
         return item;
     }

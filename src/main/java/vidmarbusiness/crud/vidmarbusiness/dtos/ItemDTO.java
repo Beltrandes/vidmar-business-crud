@@ -12,8 +12,7 @@ public record ItemDTO(
     @JsonProperty("_id") Long id,
     @NotNull Integer amount,
     @NotNull @NotBlank @Length(max = 100) String name,
-    @NotNull @NotBlank @Length(max = 20) @Pattern(regexp = "Marmoraria|Vidraçaria") String type,
-    @NotNull @NotBlank @Length(max = 20) @Pattern(regexp = "Em estoque|Em falta") String status
+    @NotNull @NotBlank @Length(max = 20) @Pattern(regexp = "Marmoraria|Vidraçaria") String type
 ) {
     
 }

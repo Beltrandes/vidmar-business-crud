@@ -25,7 +25,7 @@ public class Item {
     private Long id;
 
     @NotNull
-    @Column
+    @Column(length = 1000)
     private Integer amount;
 
     @NotBlank
@@ -37,17 +37,7 @@ public class Item {
     @NotNull
     @Length(max = 20)
     @Pattern(regexp = "Marmoraria|Vidraçaria")
-    @Column(length = 20,nullable = false)
+    @Column(length = 20, nullable = false)
     private String type;
-
-    @NotBlank
-    @NotNull
-    @Length(max = 20)
-    @Pattern(regexp = "Em estoque|Em falta")
-    @Column(length = 20,nullable = false)
-    private String status;
-    
-
-    
 
 }
