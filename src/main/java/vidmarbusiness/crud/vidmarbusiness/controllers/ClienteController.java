@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import vidmarbusiness.crud.vidmarbusiness.dtos.ClienteDTO;
+import vidmarbusiness.crud.vidmarbusiness.dtos.WorkDTO;
 import vidmarbusiness.crud.vidmarbusiness.services.ClienteService;
 
 @RestController
@@ -34,6 +35,16 @@ public class ClienteController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public ClienteDTO create(@RequestBody @Valid ClienteDTO cliente) {
         return clienteService.create(cliente);
+    }
+
+    @PutMapping("/{id}")
+    public ClienteDTO update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid ClienteDTO cliente) {
+        return clienteService.update(id, cliente);
+    }
+
+    @PutMapping("/obras/{id}")
+    public ClienteDTO updateWorks(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid List<WorkDTO> obras) {
+        return clienteService.updateWorks(id, obras);
     }
 
     @DeleteMapping("/{id}")

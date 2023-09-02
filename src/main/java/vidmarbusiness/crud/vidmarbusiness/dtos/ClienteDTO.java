@@ -1,5 +1,6 @@
 package vidmarbusiness.crud.vidmarbusiness.dtos;
 
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,8 +15,13 @@ public record ClienteDTO(
     @JsonProperty("_id") Long id,
     @NotNull @NotBlank @Length(max = 50) String name,
     @Length(max = 50) String address,
-    @NotNull @NotBlank @Length(max = 50) List<Work> works,
-    @NotNull @NotBlank @Length(max = 20) String number
-) {
+    @NotNull @NotBlank @Length(max = 20) String number,
+
+    String arrowDirection,
+    List<WorkDTO> works)
+
+
+
+{
     
 }

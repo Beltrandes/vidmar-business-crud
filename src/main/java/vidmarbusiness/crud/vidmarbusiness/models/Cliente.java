@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -33,7 +35,8 @@ public class Cliente {
     @Column(length = 20)
     private String number;
 
-    @NotNull
-    @OneToMany(mappedBy = "cliente")
-    private List<Work> works;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente")
+    private List<Work> works = new ArrayList<>();
+
+    private String arrowDirection = "down";
 }

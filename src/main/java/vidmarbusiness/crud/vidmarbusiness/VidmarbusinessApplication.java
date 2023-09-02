@@ -10,7 +10,6 @@ import vidmarbusiness.crud.vidmarbusiness.models.Item;
 import vidmarbusiness.crud.vidmarbusiness.models.Work;
 import vidmarbusiness.crud.vidmarbusiness.repositorys.ClienteRepository;
 import vidmarbusiness.crud.vidmarbusiness.repositorys.ItemRepository;
-import vidmarbusiness.crud.vidmarbusiness.repositorys.WorkRepository;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -49,10 +48,9 @@ public class VidmarbusinessApplication {
 		};
 	}
 	@Bean
-	CommandLineRunner initClientesObraDatabase(ClienteRepository clienteRepository, WorkRepository workRepository) {
+	CommandLineRunner initClientesObraDatabase(ClienteRepository clienteRepository) {
 		return args -> {
 			clienteRepository.deleteAll();
-			workRepository.deleteAll();
 
 			Cliente a = new Cliente();
 			a.setName("Lilia");
@@ -61,12 +59,14 @@ public class VidmarbusinessApplication {
 			Work obra1 = new Work();
 			obra1.setName("Cobertura Ibirapuera");
 			obra1.setAddress("Rua Estado de Israel, 320");
+			obra1.setServiceType("Vidraçaria");
 			obra1.setInitialDate(LocalDate.of(2022, 3, 7));
 			obra1.setFinishDate(LocalDate.of(2023, 1, 30));
 			obra1.setCliente(a);
 
 			Work obra2 = new Work();
 			obra2.setName("Casa Perdizes");
+			obra2.setServiceType("Marmoraria");
 			obra2.setAddress("Rua dos Perdizes, 212");
 			obra2.setInitialDate(LocalDate.of(2022, 5, 13));
 			obra2.setFinishDate(LocalDate.of(2022, 6, 25));
@@ -84,6 +84,7 @@ public class VidmarbusinessApplication {
 
 			obra3.setName("Cobertura Clube Esperia");
 			obra3.setAddress("Av. Marginal Tietê, 12345");
+			obra3.setServiceType("Ambos");
 			obra3.setCliente(b);
 			obra3.setInitialDate(LocalDate.of(2022, 10, 20));
 			obra3.setFinishDate(LocalDate.of(2023, 5, 6));
@@ -94,10 +95,6 @@ public class VidmarbusinessApplication {
 
 			clienteRepository.save(a);
 			clienteRepository.save(b);
-
-			workRepository.save(obra1);
-			workRepository.save(obra2);
-			workRepository.save(obra3);
 
 		};
 	}
