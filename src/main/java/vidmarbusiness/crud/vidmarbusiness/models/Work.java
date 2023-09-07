@@ -40,7 +40,6 @@ public class Work {
     @Column(length = 50, name = "data_inicio")
     private LocalDate initialDate;
 
-    @NotNull
     @Column(length = 50, name = "data_termino")
     private LocalDate finishDate;
 

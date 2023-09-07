@@ -61,6 +61,9 @@ public class ClienteService {
         Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new RecordNotFoundException(clienteId));
 
+        cliente.getWorks().clear();
+        clienteRepository.save(cliente);
+
         List<Work> works = obras.stream()
                 .map(obraDTO -> {
                     Work obra = workMapper.toEntity(obraDTO);

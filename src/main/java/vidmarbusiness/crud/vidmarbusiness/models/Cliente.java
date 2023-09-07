@@ -1,5 +1,6 @@
 package vidmarbusiness.crud.vidmarbusiness.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
@@ -36,7 +37,17 @@ public class Cliente {
     private String number;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente")
+    @JsonIgnore
     private List<Work> works = new ArrayList<>();
+
+    public void setWorks(List<Work> newWorks) {
+        works.clear();
+
+        for (Work work : newWorks) {
+            work.setCliente(this);
+            works.add(work);
+        }
+    }
 
     private String arrowDirection = "down";
 }
