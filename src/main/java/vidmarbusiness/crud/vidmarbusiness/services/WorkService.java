@@ -52,6 +52,7 @@ public class WorkService {
                 }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
+
     public void delete(@NotNull @Positive Long id) {
         workRepository.delete(workRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(id)));
