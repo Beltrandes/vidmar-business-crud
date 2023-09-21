@@ -5,11 +5,15 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestMapping;
 import vidmarbusiness.crud.vidmarbusiness.dtos.ClienteDTO;
 import vidmarbusiness.crud.vidmarbusiness.dtos.ItemDTO;
 import vidmarbusiness.crud.vidmarbusiness.dtos.WorkDTO;
 import vidmarbusiness.crud.vidmarbusiness.exceptions.RecordNotFoundException;
+import vidmarbusiness.crud.vidmarbusiness.mappers.ClienteMapper;
 import vidmarbusiness.crud.vidmarbusiness.mappers.WorkMapper;
+import vidmarbusiness.crud.vidmarbusiness.models.Cliente;
+import vidmarbusiness.crud.vidmarbusiness.models.Work;
 import vidmarbusiness.crud.vidmarbusiness.repositorys.WorkRepository;
 
 import java.util.List;
@@ -21,9 +25,15 @@ public class WorkService {
 
     private final WorkMapper workMapper;
 
-    public WorkService(WorkRepository workRepository, WorkMapper workMapper) {
+    private final ClienteService clienteService;
+
+    private final ClienteMapper clienteMapper;
+
+    public WorkService(WorkRepository workRepository, WorkMapper workMapper, ClienteService clienteService, ClienteMapper clienteMapper) {
         this.workRepository = workRepository;
         this.workMapper = workMapper;
+        this.clienteService = clienteService;
+        this.clienteMapper = clienteMapper;
     }
 
     public List<WorkDTO> list() {
@@ -36,7 +46,23 @@ public class WorkService {
     }
 
     public WorkDTO create(@Valid @NotNull WorkDTO work) {
-        return workMapper.toDTO(workRepository.save(workMapper.toEntity(work)));
+        ClienteDTO clienteDTO = clienteService.findById(work.cliente().getId());
+        Cliente cliente = clienteMapper.toEntity(clienteDTO);
+
+        Work novaObra = new Work();
+
+        novaObra.setName(work.name());
+        novaObra.setAddress(work.address());
+        novaObra.setCliente(cliente);
+        novaObra.setServiceType(work.serviceType());
+        novaObra.setInitialDate(work.initialDate());
+        novaObra.setFinishDate(work.finishDate());
+
+
+
+        Work obraSalva = workRepository.save(novaObra);
+
+        return workMapper.toDTO(obraSalva);
     }
 
     public WorkDTO update(@NotNull @Positive Long id, @Valid @NotNull WorkDTO work) {
