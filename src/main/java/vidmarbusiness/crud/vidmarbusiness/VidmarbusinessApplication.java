@@ -7,9 +7,11 @@ import org.springframework.context.annotation.Bean;
 
 import vidmarbusiness.crud.vidmarbusiness.models.Cliente;
 import vidmarbusiness.crud.vidmarbusiness.models.Item;
+import vidmarbusiness.crud.vidmarbusiness.models.Orcamento;
 import vidmarbusiness.crud.vidmarbusiness.models.Work;
 import vidmarbusiness.crud.vidmarbusiness.repositorys.ClienteRepository;
 import vidmarbusiness.crud.vidmarbusiness.repositorys.ItemRepository;
+import vidmarbusiness.crud.vidmarbusiness.repositorys.OrcamentoRepository;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -48,7 +50,7 @@ public class VidmarbusinessApplication {
 		};
 	}
 	@Bean
-	CommandLineRunner initClientesObraDatabase(ClienteRepository clienteRepository) {
+	CommandLineRunner initClientesObraOrcaDatabase(ClienteRepository clienteRepository) {
 		return args -> {
 			clienteRepository.deleteAll();
 
@@ -96,6 +98,32 @@ public class VidmarbusinessApplication {
 			clienteRepository.save(a);
 			clienteRepository.save(b);
 
+		};
+	}
+
+	@Bean
+	CommandLineRunner initOrcamentosDatabase(OrcamentoRepository orcamentoRepository, ClienteRepository clienteRepository) {
+		return args -> {
+			orcamentoRepository.deleteAll();
+
+			Orcamento a = new Orcamento();
+
+			Cliente cliente = new Cliente();
+
+			cliente.setName("Beltrandes");
+			cliente.setNumber("(11) 98953-8472");
+			cliente.setAddress("Rua Pedro José Lorenzini, 85");
+
+			a.setCliente(cliente);
+			a.setTotal(8730.00);
+			a.setData(LocalDate.now());
+			a.setArquivo("./assets/guiaCliente");
+			a.setDescricao("Cozinha e área gourmet em Quartzo Branco");
+			a.setContato(cliente.getNumber());
+			a.setStatus("Não Fechado");
+
+			clienteRepository.save(cliente);
+			orcamentoRepository.save(a);
 		};
 	}
 
