@@ -1,5 +1,6 @@
 package vidmarbusiness.crud.vidmarbusiness.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -38,9 +39,6 @@ public class Orcamento {
         @Column(name = "descricao")
         private String descricao;
 
-        @Column(name = "caminho_arquivo")
-        private String arquivo;
-
         @Column(name = "status", length = 20)
         @Pattern(regexp = "Não Fechado|Fechado")
         private String status = "Não Fechado";
@@ -48,6 +46,10 @@ public class Orcamento {
         @Column(name = "valorTotal")
         @NotNull
         private Double total;
+
+        @OneToMany(cascade = CascadeType.ALL, mappedBy = "orcamento")
+        @JsonIgnore
+        private List<ItemOrcamento> itens;
 
     }
 

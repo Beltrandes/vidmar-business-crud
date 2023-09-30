@@ -5,15 +5,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import vidmarbusiness.crud.vidmarbusiness.models.Cliente;
-import vidmarbusiness.crud.vidmarbusiness.models.Item;
-import vidmarbusiness.crud.vidmarbusiness.models.Orcamento;
-import vidmarbusiness.crud.vidmarbusiness.models.Work;
+import vidmarbusiness.crud.vidmarbusiness.models.*;
 import vidmarbusiness.crud.vidmarbusiness.repositorys.ClienteRepository;
+import vidmarbusiness.crud.vidmarbusiness.repositorys.ItemOrcamentoRepository;
 import vidmarbusiness.crud.vidmarbusiness.repositorys.ItemRepository;
 import vidmarbusiness.crud.vidmarbusiness.repositorys.OrcamentoRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -102,30 +101,116 @@ public class VidmarbusinessApplication {
 	}
 
 	@Bean
-	CommandLineRunner initOrcamentosDatabase(OrcamentoRepository orcamentoRepository, ClienteRepository clienteRepository) {
+	CommandLineRunner initOrcamentosDatabase(OrcamentoRepository orcamentoRepository, ClienteRepository clienteRepository, ItemOrcamentoRepository itemOrcamentoRepository) {
 		return args -> {
 			orcamentoRepository.deleteAll();
+			List<Cliente> clientes = clienteRepository.findAll();
+			itemOrcamentoRepository.deleteAll();
+
+			Cliente cliente1 = clientes.get(0);
+			Cliente cliente2 = clientes.get(1);
 
 			Orcamento a = new Orcamento();
-
-			Cliente cliente = new Cliente();
-
-			cliente.setName("Beltrandes");
-			cliente.setNumber("(11) 98953-8472");
-			cliente.setAddress("Rua Pedro José Lorenzini, 85");
-
-			a.setCliente(cliente);
+			a.setCliente(cliente1);
 			a.setTotal(8730.00);
 			a.setData(LocalDate.now());
-			a.setArquivo("./assets/guiaCliente");
 			a.setDescricao("Cozinha e área gourmet em Quartzo Branco");
-			a.setContato(cliente.getNumber());
+			a.setContato(cliente1.getNumber());
 			a.setStatus("Não Fechado");
+			a.setItens(new ArrayList<ItemOrcamento>());
 
-			clienteRepository.save(cliente);
+			Orcamento b = new Orcamento();
+			b.setCliente(cliente2);
+			b.setTotal(2350.00);
+			b.setData(LocalDate.now());
+			b.setDescricao("Lavatório em Quartzo Preto Estelar");
+			b.setContato(cliente2.getNumber());
+			b.setStatus("Fechado");
+			b.setItens(new ArrayList<ItemOrcamento>());
+
+
 			orcamentoRepository.save(a);
+			orcamentoRepository.save(b);
+
+			ItemOrcamento item = new ItemOrcamento();
+			item.setOrcamento(a);
+			item.setDetalhes("Frontões 10cm e Saia de 4cm");
+			item.setNome("Bancada");
+			item.setDimensoes("2070x720");
+			item.setMaterial("Quartzo Cinza");
+			item.setM2(1.49);
+			item.setM2Valor(2200.0);
+			item.setQuantidade(1.0);
+			if(item.getQuantidade() != null) {
+				item.setM2Total(item.getM2() * item.getQuantidade());
+				item.setValorItem(item.getM2() * item.getM2Valor());
+				item.setValorTotal(item.getM2Total() * item.getM2Valor());
+			} else {
+				item.setM2Total(0.0);
+				item.setValorItem(0.0);
+				item.setValorTotal(0.0);
+
+			}
+
+
+			ItemOrcamento item2 = new ItemOrcamento();
+			item2.setOrcamento(a);
+			item2.setDetalhes("Pontas bi-polidas com friso.");
+			item2.setNome("Soleira");
+			item2.setDimensoes("1240x180");
+			item2.setMaterial("Preto São Gabriel");
+			item2.setM2(0.23);
+			item2.setM2Valor(850.0);
+			item2.setQuantidade(10.0);
+			if(item2.getQuantidade() != null) {
+				item2.setM2Total(item2.getM2() * item2.getQuantidade());
+				item2.setValorItem(item2.getM2() * item2.getM2Valor());
+				item2.setValorTotal(item2.getM2Total() * item2.getM2Valor());
+			} else {
+				item2.setM2Total(0.0);
+				item2.setValorItem(0.0);
+				item2.setValorTotal(0.0);
+
+			}
+
+
+			ItemOrcamento item3 = new ItemOrcamento();
+			item3.setOrcamento(b);
+			item3.setDetalhes("Material escovado");
+			item3.setNome("Bancada");
+			item3.setDimensoes("1230x520");
+			item3.setMaterial("Branco Itaúnas");
+			item3.setM2(0.67);
+			item3.setM2Valor(950.0);
+			item3.setQuantidade(3.0);
+			if(item2.getQuantidade() != null) {
+				item3.setM2Total(item3.getM2() * item3.getQuantidade());
+				item3.setValorItem(item3.getM2() * item3.getM2Valor());
+				item3.setValorTotal(item3.getM2Total() * item3.getM2Valor());
+			} else {
+				item3.setM2Total(0.0);
+				item3.setValorItem(0.0);
+				item3.setValorTotal(0.0);
+
+			}
+
+
+
+
+
+			itemOrcamentoRepository.save(item);
+			itemOrcamentoRepository.save(item2);
+			itemOrcamentoRepository.save(item3);
+
+			a.getItens().add(item);
+			a.getItens().add(item2);
+			b.getItens().add(item3);
+
+			orcamentoRepository.save(a);
+			orcamentoRepository.save(b);
 		};
 	}
+
 
 
 }

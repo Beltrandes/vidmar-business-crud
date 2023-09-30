@@ -49,7 +49,7 @@ public class OrcamentoService {
                     recordFound.setDescricao(orcamento.descricao());
                     recordFound.setTotal(orcamento.total());
                     recordFound.setStatus(orcamento.status());
-                    recordFound.setArquivo(orcamento.arquivo());
+                    recordFound.setItens(orcamento.itens());
                     return orcamentoMapper.toDTO(orcamentoRepository.save(recordFound));
                 }).orElseThrow(() -> new RecordNotFoundException(id));
     }
