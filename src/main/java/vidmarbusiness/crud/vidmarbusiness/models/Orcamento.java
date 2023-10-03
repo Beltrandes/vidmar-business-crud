@@ -26,6 +26,12 @@ public class Orcamento {
         @JoinColumn(name = "cliente_id")
         private Cliente cliente;
 
+        @Column(name = "forma_de_pagto")
+        private String formaDePagamento;
+
+        @Column(name = "prazo_de_entrega")
+        private String prazoDeEntrega;
+
         @Column(name = "data", length = 80)
         @NotNull
         private LocalDate data;
@@ -44,12 +50,21 @@ public class Orcamento {
         private String status = "Não Fechado";
 
         @Column(name = "valorTotal")
-        @NotNull
-        private Double total;
+        private double total;
 
         @OneToMany(cascade = CascadeType.ALL, mappedBy = "orcamento")
         @JsonIgnore
         private List<ItemOrcamento> itens;
+
+        public double calcTotal() {
+                if (itens != null && !itens.isEmpty()) {
+                        double total = itens.stream().mapToDouble(ItemOrcamento::getValorTotal).sum();
+                        this.total = total;
+                } else {
+                        this.total = 0.0;
+                }
+                return this.total;
+        }
 
     }
 

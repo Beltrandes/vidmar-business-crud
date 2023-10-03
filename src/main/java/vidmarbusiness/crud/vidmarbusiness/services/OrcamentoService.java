@@ -50,9 +50,13 @@ public class OrcamentoService {
                     recordFound.setTotal(orcamento.total());
                     recordFound.setStatus(orcamento.status());
                     recordFound.setItens(orcamento.itens());
+                    recordFound.setFormaDePagamento(orcamento.formaDePagamento());
+                    recordFound.setPrazoDeEntrega(orcamento.prazoDeEntrega());
                     return orcamentoMapper.toDTO(orcamentoRepository.save(recordFound));
                 }).orElseThrow(() -> new RecordNotFoundException(id));
     }
+
+
 
     public void delete(@NotNull @Positive Long id) {
         orcamentoRepository.delete(orcamentoRepository.findById(id)

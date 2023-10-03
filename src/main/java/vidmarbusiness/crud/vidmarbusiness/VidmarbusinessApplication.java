@@ -112,8 +112,10 @@ public class VidmarbusinessApplication {
 
 			Orcamento a = new Orcamento();
 			a.setCliente(cliente1);
-			a.setTotal(8730.00);
 			a.setData(LocalDate.now());
+			a.setTotal(a.calcTotal());
+			a.setPrazoDeEntrega("15 dias úteis");
+			a.setFormaDePagamento("40% de sinal, saldo em até 3x no cartão");
 			a.setDescricao("Cozinha e área gourmet em Quartzo Branco");
 			a.setContato(cliente1.getNumber());
 			a.setStatus("Não Fechado");
@@ -121,10 +123,11 @@ public class VidmarbusinessApplication {
 
 			Orcamento b = new Orcamento();
 			b.setCliente(cliente2);
-			b.setTotal(2350.00);
 			b.setData(LocalDate.now());
 			b.setDescricao("Lavatório em Quartzo Preto Estelar");
 			b.setContato(cliente2.getNumber());
+			b.setFormaDePagamento("6x no cartão de crédito");
+			b.setPrazoDeEntrega("10 dias úteis");
 			b.setStatus("Fechado");
 			b.setItens(new ArrayList<ItemOrcamento>());
 
@@ -136,9 +139,10 @@ public class VidmarbusinessApplication {
 			item.setOrcamento(a);
 			item.setDetalhes("Frontões 10cm e Saia de 4cm");
 			item.setNome("Bancada");
-			item.setDimensoes("2070x720");
+			item.setMedidaX(2.7);
+			item.setMedidaY(0.65);
 			item.setMaterial("Quartzo Cinza");
-			item.setM2(1.49);
+			item.setM2(item.getMedidaX() * item.getMedidaY());
 			item.setM2Valor(2200.0);
 			item.setQuantidade(1.0);
 			if(item.getQuantidade() != null) {
@@ -157,9 +161,10 @@ public class VidmarbusinessApplication {
 			item2.setOrcamento(a);
 			item2.setDetalhes("Pontas bi-polidas com friso.");
 			item2.setNome("Soleira");
-			item2.setDimensoes("1240x180");
+			item2.setMedidaX(1.24);
+			item2.setMedidaY(.18);
 			item2.setMaterial("Preto São Gabriel");
-			item2.setM2(0.23);
+			item2.setM2(item2.getMedidaX() * item2.getMedidaY());
 			item2.setM2Valor(850.0);
 			item2.setQuantidade(10.0);
 			if(item2.getQuantidade() != null) {
@@ -178,9 +183,10 @@ public class VidmarbusinessApplication {
 			item3.setOrcamento(b);
 			item3.setDetalhes("Material escovado");
 			item3.setNome("Bancada");
-			item3.setDimensoes("1230x520");
+			item3.setMedidaX(1.23);
+			item3.setMedidaY(0.52);
 			item3.setMaterial("Branco Itaúnas");
-			item3.setM2(0.67);
+			item3.setM2(item3.getMedidaX() * item3.getMedidaY());
 			item3.setM2Valor(950.0);
 			item3.setQuantidade(3.0);
 			if(item2.getQuantidade() != null) {
@@ -197,7 +203,6 @@ public class VidmarbusinessApplication {
 
 
 
-
 			itemOrcamentoRepository.save(item);
 			itemOrcamentoRepository.save(item2);
 			itemOrcamentoRepository.save(item3);
@@ -205,6 +210,10 @@ public class VidmarbusinessApplication {
 			a.getItens().add(item);
 			a.getItens().add(item2);
 			b.getItens().add(item3);
+
+			b.setTotal(b.calcTotal());
+			a.setTotal(a.calcTotal());
+
 
 			orcamentoRepository.save(a);
 			orcamentoRepository.save(b);

@@ -21,7 +21,9 @@ public class ItemOrcamento {
     @NotNull
     private String material;
 
-    private String dimensoes;
+    private Double medidaX;
+
+    private Double medidaY;
 
     @NotNull
     private Double quantidade;

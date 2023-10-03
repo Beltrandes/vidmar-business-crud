@@ -10,7 +10,7 @@ public class OrcamentoMapper {
         if (orcamento == null) {
             return null;
         }
-        return new OrcamentoDTO(orcamento.getId(), orcamento.getCliente(), orcamento.getData(), orcamento.getContato(), orcamento.getDescricao(), orcamento.getStatus(), orcamento.getTotal(), orcamento.getItens());
+        return new OrcamentoDTO(orcamento.getId(), orcamento.getCliente(), orcamento.getData(), orcamento.getContato(), orcamento.getDescricao(), orcamento.getStatus(), orcamento.getTotal(), orcamento.getFormaDePagamento(), orcamento.getPrazoDeEntrega(), orcamento.getItens());
     }
 
     public Orcamento toEntity(OrcamentoDTO orcamentoDTO) {
@@ -30,6 +30,8 @@ public class OrcamentoMapper {
         orcamento.setStatus(orcamentoDTO.status());
         orcamento.setTotal(orcamentoDTO.total());
         orcamento.setItens(orcamentoDTO.itens());
+        orcamento.setFormaDePagamento(orcamentoDTO.formaDePagamento());
+        orcamento.setPrazoDeEntrega(orcamentoDTO.prazoDeEntrega());
 
         return orcamento;
     }
